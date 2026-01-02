@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaya & Ryan - Restaurant & Sport Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #d4af37;
+            --text-dark: #2C2416;
+            --text-light: #6B5D4F;
+            --bg-cream: #FAF7F2;
+            --bg-white: #FFFFFF;
+            --accent-red: #C41E3A;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--bg-cream) 0%, #FFF9F0 100%);
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(26, 26, 26, 0.98) 100%);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(212,175,55,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .restaurant-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 3px;
+        }
+
+        .restaurant-subtitle {
+            font-size: 1rem;
+            color: var(--bg-cream);
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .breadcrumb {
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--accent-red);
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-light);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(26, 26, 26, 0.2);
+        }
+
+        .category-image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1);
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.15);
+        }
+
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(44, 36, 22, 0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .category-card:hover .category-overlay {
+            opacity: 1;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .category-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        .menu-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(26, 26, 26, 0.15);
+        }
+
+        .menu-item-image-wrapper {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 10s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1);
+        }
+
+        .menu-item-card:hover .menu-item-image {
+            transform: scale(1.2);
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .menu-item-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item-price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-currency {
+            font-size: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(26, 26, 26, 0.3);
+        }
+
+        .back-button:hover {
+            background: var(--accent-red);
+            transform: translateX(-4px);
+            box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--secondary-color), transparent);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .restaurant-name {
+                font-size: 2rem;
+            }
+
+            .categories-grid,
+            .menu-items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1 class="restaurant-name">Zaya & Ryan</h1>
+            <p class="restaurant-subtitle">Restaurant & Sport Lounge</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div id="breadcrumb" class="breadcrumb hidden">
+            <span class="breadcrumb-link" onclick="showCategories()">Menu</span>
+        </div>
+
+        <div id="categoriesView">
+            <h2 class="section-title">Our Menu</h2>
+            <div id="categoriesGrid" class="categories-grid"></div>
+        </div>
+
+        <div id="subCategoriesView" class="hidden">
+            <button class="back-button" onclick="showCategories()">
+                <span>←</span> Back to Menu
+            </button>
+            <h2 id="subCategoryTitle" class="section-title"></h2>
+            <div id="subCategoriesGrid" class="categories-grid"></div>
+        </div>
+
+        <div id="menuItemsView" class="hidden">
+            <button class="back-button" onclick="goBack()">
+                <span>←</span> Back
+            </button>
+            <h2 id="menuItemsTitle" class="section-title"></h2>
+            <div id="menuItemsGrid" class="menu-items-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Complete menu data from Zaya & Ryan PDF
+        const menuData = {
+            categories: [
+                {
+                    id: 'breakfast',
+                    name: 'Breakfast',
+                    image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'all-day-breakfast',
+                            name: 'All Day Breakfast',
+                            count: 3
+                        }
+                    ]
+                },
+                {
+                    id: 'entree',
+                    name: 'Entree',
+                    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'entree-items',
+                            name: 'Entree Selection',
+                            count: 3
+                        }
+                    ]
+                },
+                {
+                    id: 'starters',
+                    name: 'Starters',
+                    image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'hot-starters',
+                            name: 'Hot Starters',
+                            count: 9
+                        },
+                        {
+                            id: 'finger-bites',
+                            name: 'Finger Bites',
+                            count: 3
+                        }
+                    ]
+                },
+                {
+                    id: 'pizza',
+                    name: 'Pizza',
+                    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'pizza-menu',
+                            name: 'Pizza Selection',
+                            count: 4
+                        }
+                    ]
+                },
+                {
+                    id: 'combos',
+                    name: "Let's Share Combos",
+                    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'combo-platters',
+                            name: 'Combo Platters',
+                            count: 4
+                        }
+                    ]
+                },
+                {
+                    id: 'salads',
+                    name: 'Salads',
+                    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'salad-menu',
+                            name: 'Fresh Salads',
+                            count: 7
+                        }
+                    ]
+                },
+                {
+                    id: 'pasta',
+                    name: 'Pasta',
+                    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'pasta-dishes',
+                            name: 'Pasta Dishes',
+                            count: 6
+                        }
+                    ]
+                },
+                {
+                    id: 'rice',
+                    name: 'Rice Rules',
+                    image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'rice-dishes',
+                            name: 'Rice Dishes',
+                            count: 4
+                        }
+                    ]
+                },
+                {
+                    id: 'mainland',
+                    name: 'Main Land',
+                    image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'main-courses',
+                            name: 'Main Courses',
+                            count: 5
+                        }
+                    ]
+                },
+                {
+                    id: 'steaks',
+                    name: 'Steak Me Out',
+                    image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'steak-selection',
+                            name: 'Premium Steaks',
+                            count: 4
+                        }
+                    ]
+                },
+                {
+                    id: 'sides',
+                    name: 'Side Walk',
+                    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'side-dishes',
+                            name: 'Side Dishes',
+                            count: 6
+                        }
+                    ]
+                },
+                {
+                    id: 'burgers',
+                    name: 'Burgers',
+                    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'burger-menu',
+                            name: 'Burger Selection',
+                            count: 7
+                        }
+                    ]
+                },
+                {
+                    id: 'sandwiches',
+                    name: 'Sand-Wishes',
+                    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'sandwich-menu',
+                            name: 'Sandwiches',
+                            count: 4
+                        }
+                    ]
+                },
+                {
+                    id: 'desserts',
+                    name: 'Dessert',
+                    image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'dessert-menu',
+                            name: 'Sweet Treats',
+                            count: 6
+                        }
+                    ]
+                },
+                {
+                    id: 'drinks',
+                    name: 'Premium Drinks',
+                    image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'cognac',
+                            name: 'Cognac',
+                            count: 10
+                        },
+                        {
+                            id: 'champagne',
+                            name: 'Champagne',
+                            count: 12
+                        },
+                        {
+                            id: 'whiskey',
+                            name: 'Whiskey',
+                            count: 14
+                        },
+                        {
+                            id: 'gin',
+                            name: 'Gin',
+                            count: 6
+                        },
+                        {
+                            id: 'liqueur',
+                            name: 'Liqueur',
+                            count: 3
+                        },
+                        {
+                            id: 'vodka',
+                            name: 'Vodka',
+                            count: 3
+                        },
+                        {
+                            id: 'wines',
+                            name: 'Wines',
+                            count: 24
+                        },
+                        {
+                            id: 'tequila',
+                            name: 'Tequila',
+                            count: 10
+                        }
+                    ]
+                },
+                {
+                    id: 'mocktails',
+                    name: 'Mocktails',
+                    image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80',
+                    subCategories: [
+                        {
+                            id: 'mocktail-menu',
+                            name: 'Non-Alcoholic Drinks',
+                            count: 11
+                        }
+                    ]
+                }
+            ],
+            menuItems: {
+                'all-day-breakfast': [
+                    {
+                        name: 'Naira Style All Day',
+                        description: 'Egg sauce, Fish sauce, and a Golden yam or plantain with a glass of juice',
+                        price: '25,000',
+                        image: 'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80'
+                    },
+                    {
+                        name: 'Super Duper Breakfast',
+                        description: 'Pancake, honey, French toast, baked beans, sausage, scrambled eggs, butter, sauteed tomato and mushroom, seasoned fruits with your choice of juice, coffee or tea',
+                        price: '35,000',
+                        image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&q=80'
+                    },
+                    {
+                        name: 'American Breakfast',
+                        description: 'Waffles, egg and bread toast, maple syrup, scrambled eggs, baked beans, butter, sauteed veggies, mix fruits with your choice of juice, coffee or tea',
+                        price: '33,000',
+                        image: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&q=80'
+                    }
+                ],
+                'entree-items': [
+                    {
+                        name: 'Shrimp Bruschetta',
+                        description: 'French Baguette bread toasted with pomodoro sauce, shrimp, and mozzarella cheese (4 pieces)',
+                        price: '20,500',
+                        image: 'https://plus.unsplash.com/premium_photo-1664303282969-16454b0561e7?q=80&w=946&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    },
+                    {
+                        name: 'Cheese Garlic Bread',
+                        description: 'French Baguette bread toasted with house garlic sauce, and mozzarella cheese (4 pieces)',
+                        price: '16,500',
+                        image: 'https://images.unsplash.com/photo-1619096252214-ef06c45683e3?w=800&q=80'
+                    },
+                    {
+                        name: 'Cheesy Chicken Quesadilla',
+                        description: 'Toasted tortilla bread served with guacamole sauce, shredded chicken breast, mozzarella cheese, bell peppers (4 pieces)',
+                        price: '23,000',
+                        image: 'https://plus.unsplash.com/premium_photo-1739988546482-a589cf509b34?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    }
+                ],
+                'hot-starters': [
+                    {
+                        name: 'Chicken Potato Towel',
+                        description: 'Chicken Breast, Irish Potato, and pepper corn sauce',
+                        price: '15,500',
+                        image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800&q=80'
+                    },
+                    {
+                        name: 'Ocean Mist',
+                        description: 'Crispy Calamari, Crispy Shrimps, Onion Rings, and Tartar sauce (3 pieces each)',
+                        price: '21,500',
+                        image: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80'
+                    },
+                    {
+                        name: 'Chicken Wings',
+                        description: 'Crispy, BBQ, and Chilli Garlic with your choice of sauce (10 pieces)',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&q=80'
+                    },
+                    {
+                        name: 'Chicken Skewers',
+                        description: 'Marinated grilled chicken breast, garlic sauce, and chilli sauce (4 pieces)',
+                        price: '14,000',
+                        image: 'https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=800&q=80'
+                    },
+                    {
+                        name: 'Shrimp Skewers',
+                        description: 'Herb Marinated grilled shrimps, Tartar sauce, and chilli sauce (3 pieces)',
+                        price: '19,500',
+                        image: 'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=800&q=80'
+                    },
+                    {
+                        name: 'Munchies Fries',
+                        description: 'Irish potato, cheese, chilli sauce, beef cubes',
+                        price: '19,500',
+                        image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80'
+                    },
+                    {
+                        name: 'Hot Goat',
+                        description: 'Goat meat cubes, chilli sauce, and onion wings',
+                        price: '19,500',
+                        image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=800&q=80'
+                    },
+                    {
+                        name: 'Chicken Gizz Dodoo',
+                        description: 'Fried plantain cubes topped with chicken gizzard',
+                        price: '15,000',
+                        image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800&q=80'
+                    },
+                    {
+                        name: 'Golden Crispy Jumbo Prawns',
+                        description: 'Topped with cheesy fries served with tartar sauce',
+                        price: '35,000',
+                        image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=80'
+                    }
+                ],
+                'finger-bites': [
+                    {
+                        name: 'Beef Samosa',
+                        description: 'Crispy pastry filled with spiced beef (4 pieces)',
+                        price: '14,500',
+                        image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80'
+                    },
+                    {
+                        name: 'Spring Rolls',
+                        description: 'Vegetable, Chicken, or Beef (4 pieces)',
+                        price: '14,500',
+                        image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?w=800&q=80'
+                    },
+                    {
+                        name: 'Shrimp Roll',
+                        description: 'Crispy shrimp rolls with sweet chili sauce',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80'
+                    }
+                ],
+                'pizza-menu': [
+                    {
+                        name: 'Pepperoni Pizza',
+                        description: 'Classic pepperoni with mozzarella cheese',
+                        price: '24,000',
+                        image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=800&q=80'
+                    },
+                    {
+                        name: 'Barbecue Pizza',
+                        description: 'BBQ sauce, chicken, onions, and cheese',
+                        price: '24,000',
+                        image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80'
+                    },
+                    {
+                        name: 'Vegetarian Pizza',
+                        description: 'Fresh vegetables with mozzarella cheese',
+                        price: '20,000',
+                        image: 'https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=800&q=80'
+                    },
+                    {
+                        name: 'Margarita Pizza',
+                        description: 'Classic tomato, mozzarella, and fresh basil',
+                        price: '20,000',
+                        image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=80'
+                    }
+                ],
+                'combo-platters': [
+                    {
+                        name: 'Crispy Combo Platter',
+                        description: 'Two scottish eggs, 4 chicken strips, 4 home-made mozzarella sticks, 6 chicken wings, and French fries',
+                        price: '40,000',
+                        image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80'
+                    },
+                    {
+                        name: 'Jolly Combo Platter',
+                        description: 'BBQ Chicken Wings, Ocean Mist, Chicken and shrimps Skewers, Cheese garlic Bread, and Fries (FREE RED WINE BOTTLE)',
+                        price: '75,000',
+                        image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80'
+                    },
+                    {
+                        name: 'Gang Bang Combo',
+                        description: 'Crispy chicken wings, Shrimp and Salmon Skewers, shrimp Bruschetta, Goat meat skewers, and Fries (FREE RED WINE BOTTLE)',
+                        price: '90,000',
+                        image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80'
+                    },
+                    {
+                        name: 'The Boss-Man Combo Platter',
+                        description: 'Marinated grilled chicken fillet, marinated grilled beef steak, jumbo prawns, turkey wing, crispy yam, plantain, spring roll (FREE RED WINE BOTTLE)',
+                        price: '159,000',
+                        image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80'
+                    }
+                ],
+                'salad-menu': [
+                    {
+                        name: 'Garden Salad',
+                        description: 'Mixed salad green, iceberg lettuce, Cherry Tomatoes, Shredded Carrot, Egg and balsamic vinaigrette',
+                        price: '18,500',
+                        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80'
+                    },
+                    {
+                        name: 'The Famous Chicken Caesar Salad',
+                        description: 'Iceberg lettuce, cucumber, tomato, croutons, Parmesan cheese and chicken',
+                        price: '23,000',
+                        image: 'https://images.unsplash.com/photo-1551248429-40975aa4de74?w=800&q=80'
+                    },
+                    {
+                        name: 'Exotic Chicken Salad',
+                        description: 'Mixed salad green, iceberg lettuce, Cherry Tomatoes, Shredded Carrot, Segmented Orange and topped with crispy onion dressed with House vinaigrette',
+                        price: '24,500',
+                        image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80'
+                    },
+                    {
+                        name: 'Purple Rain Coleslaw',
+                        description: 'Red cabbage, sweet corn, carrot, MYO dressing',
+                        price: '8,000',
+                        image: 'https://images.unsplash.com/photo-1600555379765-f82335a696e0?w=800&q=80'
+                    },
+                    {
+                        name: 'Cocktail Salad',
+                        description: 'Shrimp, carrots, iceberg lettuce, avocado, green apple',
+                        price: '27,000',
+                        image: 'https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=800&q=80'
+                    },
+                    {
+                        name: 'The Secret Salad',
+                        description: 'Only the adventurous get to savor this hidden treasure. Are you ready to uncover the secret?',
+                        price: '25,000',
+                        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80'
+                    },
+                    {
+                        name: 'Crab Salad',
+                        description: 'Premium crab meat with fresh greens and special dressing',
+                        price: '27,000',
+                        image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=80'
+                    }
+                ],
+                'pasta-dishes': [
+                    {
+                        name: 'The Famous Chicken Alfredo',
+                        description: 'Grilled chicken, Linguine pasta, creamy sauce, parmesan cheese',
+                        price: '28,000',
+                        image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80'
+                    },
+                    {
+                        name: 'Ocean Pasta',
+                        description: 'Sea Food Mix, Linguine Pasta, Pomodoro Sauce, Dill oil',
+                        price: '38,000',
+                        image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=800&q=80'
+                    },
+                    {
+                        name: 'Chilli Shrimp Pasta',
+                        description: 'Spaghetti Pasta, shrimps, chilli sauce, mixed veggies',
+                        price: '31,000',
+                        image: 'https://images.unsplash.com/photo-1612874742237-6526221588e3?w=800&q=80'
+                    },
+                    {
+                        name: 'Rainbow Pasta',
+                        description: 'Spaghetti Pasta, mushroom, pomodoro sauce, mixed veggies, parmesan cheese',
+                        price: '25,000',
+                        image: 'https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=800&q=80'
+                    },
+                    {
+                        name: 'Most Wanted Chicken Penne',
+                        description: 'Penne pasta, chicken breast, pomodoro sauce, creamy sauce, mushroom, mixed cheese',
+                        price: '32,000',
+                        image: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0ceb?w=800&q=80'
+                    },
+                    {
+                        name: 'The All Mighty Steak Pasta',
+                        description: 'Pasta, steak, mushroom pomodoro sauce, parmesan cheese',
+                        price: '48,000',
+                        image: 'https://images.unsplash.com/photo-1612970877932-a3e1d3d7f690?w=800&q=80'
+                    }
+                ],
+                'rice-dishes': [
+                    {
+                        name: 'Smoked Jollof Rice',
+                        description: 'Served with turkey wings',
+                        price: '28,000',
+                        image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=800&q=80'
+                    },
+                    {
+                        name: 'Vegetable Coconut Fried Rice',
+                        description: 'Aromatic coconut rice with mixed vegetables',
+                        price: '28,000',
+                        image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=800&q=80'
+                    },
+                    {
+                        name: 'Jambalaya Rice with Boiled Eggs',
+                        description: 'Spicy rice dish with eggs',
+                        price: '30,500',
+                        image: 'https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=800&q=80'
+                    },
+                    {
+                        name: 'Signature Rice',
+                        description: 'Half chicken with your choice of steamed Herb rice, Fries or Vegetable medley',
+                        price: '34,000',
+                        image: 'https://images.unsplash.com/photo-1515443961218-a51367888e4b?w=800&q=80'
+                    }
+                ],
+                'main-courses': [
+                    {
+                        name: 'Grilled Chicken Breast',
+                        description: 'Grilled marinated chicken breast with roasted potato and green salad',
+                        price: '27,000',
+                        image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800&q=80'
+                    },
+                    {
+                        name: 'Grilled Flaming Jumbo Prawns',
+                        description: 'With steamed vegetables',
+                        price: '34,000',
+                        image: 'https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=80'
+                    },
+                    {
+                        name: 'Grilled Salmon',
+                        description: 'On a bed of Mashed Potato, served with steamed veggies',
+                        price: '47,000',
+                        image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80'
+                    },
+                    {
+                        name: 'Chicken Scallopini',
+                        description: 'Topped with Mozzarella Cheese and Gravy sauce, served with French fries',
+                        price: '52,000',
+                        image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=800&q=80'
+                    },
+                    {
+                        name: 'Creamy Chicken Curry',
+                        description: 'Mixed with Irish potato cubes and served with white rice',
+                        price: '29,000',
+                        image: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?w=800&q=80'
+                    }
+                ],
+                'steak-selection': [
+                    {
+                        name: 'Rib Eye Steak',
+                        description: 'Served with Steamed Vegetable and Fries. With your choice of Mushroom Sauce, Pepper Corn Sauce, Gravy Sauce, Bell Pepper or Chilli Sauce',
+                        price: '55,000',
+                        image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80'
+                    },
+                    {
+                        name: 'Flaming Lamb Chops',
+                        description: 'Served with Steamed Vegetables and Fries (3 pieces)',
+                        price: '55,000',
+                        image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=800&q=80'
+                    },
+                    {
+                        name: 'Sirloin Steak',
+                        description: 'With Steamed Vegetables and Fries',
+                        price: '48,000',
+                        image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80'
+                    },
+                    {
+                        name: 'Tomahawk Steak',
+                        description: 'With 5 sauces and Fries, Arugula Green Salad',
+                        price: '133,500',
+                        image: 'https://images.unsplash.com/photo-1546833998-877b37c2e5c6?w=800&q=80'
+                    }
+                ],
+                'side-dishes': [
+                    {
+                        name: 'Crispy Yam',
+                        description: 'Golden fried yam',
+                        price: '11,500',
+                        image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?w=800&q=80'
+                    },
+                    {
+                        name: 'Mashed Irish Potato',
+                        description: 'With gravy sauce',
+                        price: '12,500',
+                        image: 'https://images.unsplash.com/photo-1585307406176-369d85824d86?w=800&q=80'
+                    },
+                    {
+                        name: 'Chips',
+                        description: 'Yam, Sweet Potato, or Irish Potato',
+                        price: '8,500',
+                        image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80'
+                    },
+                    {
+                        name: 'Rice',
+                        description: 'Fried, Jollof, or Snow',
+                        price: '9,500',
+                        image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=800&q=80'
+                    },
+                    {
+                        name: 'Turkey Wing',
+                        description: 'Grilled turkey wing',
+                        price: '15,000',
+                        image: 'https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?w=800&q=80'
+                    },
+                    {
+                        name: 'Battered Fries',
+                        description: 'Crispy battered French fries',
+                        price: '10,000',
+                        image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=800&q=80'
+                    }
+                ],
+                'burger-menu': [
+                    {
+                        name: 'Cheese Burger',
+                        description: 'Classic beef burger with cheese, served with French fries',
+                        price: '17,000',
+                        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80'
+                    },
+                    {
+                        name: 'Beef Burger',
+                        description: 'Premium beef patty with toppings, served with French fries',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&q=80'
+                    },
+                    {
+                        name: 'Texas Burger',
+                        description: 'BBQ beef burger with onion rings, served with French fries',
+                        price: '25,000',
+                        image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=800&q=80'
+                    },
+                    {
+                        name: 'The Slider',
+                        description: '3 Mini Burgers (Cheese, Chicken and Beef), served with French fries',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1551782450-17144efb9c50?w=800&q=80'
+                    },
+                    {
+                        name: 'Chicken Burger',
+                        description: 'Grilled chicken breast burger, served with French fries',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1562547256-2c5ee93b60b7?w=800&q=80'
+                    },
+                    {
+                        name: 'Wagyu Burger',
+                        description: 'Premium Wagyu beef burger, served with French fries',
+                        price: '26,000',
+                        image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=800&q=80'
+                    },
+                    {
+                        name: 'Be A Man - The Challenge Burger',
+                        description: 'Giant burger challenge for the brave',
+                        price: '80,000',
+                        image: 'https://images.unsplash.com/photo-1460306855393-0410f61241c7?w=800&q=80'
+                    }
+                ],
+                'sandwich-menu': [
+                    {
+                        name: 'Chicken Club Sandwiches',
+                        description: 'Classic club sandwich with chicken',
+                        price: '20,000',
+                        image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80'
+                    },
+                    {
+                        name: 'Cheesy Steak Sandwiches',
+                        description: 'Steak sandwich with melted cheese',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=800&q=80'
+                    },
+                    {
+                        name: 'Grilled Chicken Sand-Wishes',
+                        description: 'Grilled chicken sandwich',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1481070555726-e2fe8357725c?w=800&q=80'
+                    },
+                    {
+                        name: 'Hotdog Sandwiches',
+                        description: 'Classic hotdog with toppings',
+                        price: '18,000',
+                        image: 'https://images.unsplash.com/photo-1612392062422-ef19b42f74df?w=800&q=80'
+                    }
+                ],
+                'dessert-menu': [
+                    {
+                        name: 'Cloud 9',
+                        description: 'Avocado, banana, pineapple, topped with condensed milk, peanut and honey',
+                        price: '17,000',
+                        image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80'
+                    },
+                    {
+                        name: 'Banana Chocolate Cake',
+                        description: 'Served with your choice of Vanilla, Strawberry or Chocolate Italian Gelato',
+                        price: '19,500',
+                        image: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80'
+                    },
+                    {
+                        name: 'Banana Boat Gelato',
+                        description: 'Classic banana split with Italian gelato',
+                        price: '18,500',
+                        image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&q=80'
+                    },
+                    {
+                        name: 'Scoop Me Slowly',
+                        description: 'Three Gelato scoops topped with whipped cream and chocolate syrup',
+                        price: '17,500',
+                        image: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=800&q=80'
+                    },
+                    {
+                        name: 'Royal Sparkled Mixed Seasonal Fruit',
+                        description: 'Fresh seasonal fruits arrangement',
+                        price: '38,000',
+                        image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=800&q=80'
+                    },
+                    {
+                        name: 'Home Baked Cake',
+                        description: 'Freshly baked daily special cake',
+                        price: '26,000',
+                        image: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&q=80'
+                    }
+                ],
+                'cognac': [
+                    {
+                        name: 'Hennessy Paradis Imperial Cognac',
+                        description: 'Premium cognac',
+                        price: '5,000,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Hennessy XO Luminous',
+                        description: 'Luxury cognac with LED bottle',
+                        price: '500,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Martell XO',
+                        description: 'Extra old cognac',
+                        price: '820,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Martell XO Davidoff Edition',
+                        description: 'Special edition cognac',
+                        price: '1,000,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Hennessy VSOP',
+                        description: 'Very Superior Old Pale cognac',
+                        price: '270,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Hennessy VS',
+                        description: 'Very Special cognac (Shots: ₦11,000)',
+                        price: '185,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Martell Blue Swift',
+                        description: 'Bourbon cask-finished cognac',
+                        price: '270,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Martell VSOP',
+                        description: 'Very Superior Old Pale (Shots: ₦9,000)',
+                        price: '165,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Remy Martin 1738',
+                        description: 'Premium cognac',
+                        price: '295,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: "D'USSÉ VSOP",
+                        description: 'Smooth cognac',
+                        price: '310,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    }
+                ],
+                'champagne': [
+                    {
+                        name: 'Moët & Chandon Nectar Imperial Blanc/Brut',
+                        description: 'Premium champagne',
+                        price: '295,000',
+                        image: 'https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=800&q=80'
+                    },
+                    {
+                        name: 'Moët & Chandon Nectar Imperial Blanc/Rosé',
+                        description: 'Pink champagne',
+                        price: '320,000',
+                        image: 'https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=800&q=80'
+                    },
+                    {
+                        name: 'Moët & Chandon Ice Imperial',
+                        description: 'Champagne over ice',
+                        price: '500,000',
+                        image: 'https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=800&q=80'
+                    },
+                    {
+                        name: 'Veuve Clicquot Brut/Rosé',
+                        description: 'Classic champagne',
+                        price: '350,000',
+                        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80'
+                    },
+                    {
+                        name: 'Veuve Clicquot Rosé',
+                        description: 'Pink champagne',
+                        price: '320,000',
+                        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80'
+                    },
+                    {
+                        name: 'Veuve Clicquot Rich',
+                        description: 'Sweet champagne',
+                        price: '370,000',
+                        image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80'
+                    },
+                    {
+                        name: 'Ace of Spades',
+                        description: 'Luxury champagne',
+                        price: '1,700,000',
+                        image: 'https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80'
+                    },
+                    {
+                        name: 'Laurent Perrier Brut',
+                        description: 'French champagne',
+                        price: '295,000',
+                        image: 'https://images.unsplash.com/photo-1558346489-19413928158b?w=800&q=80'
+                    },
+                    {
+                        name: 'Laurent Perrier Rosé',
+                        description: 'Pink champagne',
+                        price: '355,000',
+                        image: 'https://images.unsplash.com/photo-1558346489-19413928158b?w=800&q=80'
+                    },
+                    {
+                        name: 'Dom Pérignon Rosé',
+                        description: 'Prestigious rosé champagne',
+                        price: '1,600,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Dom Pérignon Brut',
+                        description: 'Prestigious champagne',
+                        price: '1,200,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Cristal Louis Roederer',
+                        description: 'Ultra-premium champagne',
+                        price: '1,200,000',
+                        image: 'https://images.unsplash.com/photo-1516594915697-87eb3b4c14ea?w=800&q=80'
+                    }
+                ],
+                'whiskey': [
+                    {
+                        name: 'Macallan Double Cask 18 Years',
+                        description: 'Premium scotch whisky',
+                        price: '1,500,000',
+                        image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=800&q=80'
+                    },
+                    {
+                        name: 'Macallan Double Cask 15 Years',
+                        description: 'Aged scotch whisky',
+                        price: '550,000',
+                        image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=800&q=80'
+                    },
+                    {
+                        name: 'Macallan Double Cask 12 Years',
+                        description: '12 year aged scotch',
+                        price: '210,000',
+                        image: 'https://images.unsplash.com/photo-1527281400683-1aae777175f8?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenfiddich 15',
+                        description: 'Single malt scotch',
+                        price: '260,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenfiddich 18',
+                        description: '18 year single malt (Shots: ₦15,000)',
+                        price: '375,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenfiddich 12',
+                        description: '12 year single malt (Shots: ₦18,000)',
+                        price: '220,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenfiddich 21',
+                        description: '21 year single malt (Shots: ₦13,000)',
+                        price: '810,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Jameson Black Barrel',
+                        description: 'Triple distilled Irish whiskey',
+                        price: '135,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Jameson Original',
+                        description: 'Classic Irish whiskey (Shots: ₦10,000)',
+                        price: '85,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenmorangie 18 Years',
+                        description: 'Single malt scotch',
+                        price: '360,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Glenmorangie 12 Years',
+                        description: 'Single malt scotch (Shots: ₦10,000)',
+                        price: '250,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: "Jack Daniel's",
+                        description: 'Tennessee whiskey',
+                        price: '100,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Monkey Shoulder',
+                        description: 'Blended malt scotch',
+                        price: '185,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    },
+                    {
+                        name: 'Element',
+                        description: 'Premium whiskey',
+                        price: '150,000',
+                        image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&q=80'
+                    }
+                ],
+                'gin': [
+                    {
+                        name: 'Hendricks',
+                        description: 'Premium gin with cucumber and rose (Shots: ₦12,000)',
+                        price: '125,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    },
+                    {
+                        name: 'Bombay Sapphire',
+                        description: 'Classic London dry gin (Shots: ₦12,000)',
+                        price: '115,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    },
+                    {
+                        name: 'Gun Powder',
+                        description: 'Unique gin blend (Shots: ₦12,000)',
+                        price: '135,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    },
+                    {
+                        name: 'Bayas',
+                        description: 'Premium gin (Shots: ₦12,000)',
+                        price: '110,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    },
+                    {
+                        name: "Gordon's Pink",
+                        description: 'Pink gin (Shots: ₦12,000)',
+                        price: '90,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    },
+                    {
+                        name: "Gordon's Sunset Orange",
+                        description: 'Flavored gin (Shots: ₦12,000)',
+                        price: '90,000',
+                        image: 'https://images.unsplash.com/photo-1582793988951-9aed5509eb97?w=800&q=80'
+                    }
+                ],
+                'liqueur': [
+                    {
+                        name: "Bailey's Irish Cream",
+                        description: 'Cream liqueur (Shots: ₦12,000)',
+                        price: '100,000',
+                        image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=800&q=80'
+                    },
+                    {
+                        name: 'Jägermeister',
+                        description: 'Herbal liqueur (Shots: ₦11,000)',
+                        price: '110,000',
+                        image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=800&q=80'
+                    },
+                    {
+                        name: 'Campari',
+                        description: 'Italian aperitif',
+                        price: '105,000',
+                        image: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?w=800&q=80'
+                    }
+                ],
+                'vodka': [
+                    {
+                        name: 'Cîroc Vodka Original',
+                        description: 'Premium vodka',
+                        price: '135,000',
+                        image: 'https://images.unsplash.com/photo-1564758866169-1e8e1cf2b167?w=800&q=80'
+                    },
+                    {
+                        name: 'Grey Goose',
+                        description: 'French vodka',
+                        price: '170,000',
+                        image: 'https://images.unsplash.com/photo-1564758866169-1e8e1cf2b167?w=800&q=80'
+                    },
+                    {
+                        name: 'Belvedere',
+                        description: 'Polish vodka',
+                        price: '157,000',
+                        image: 'https://images.unsplash.com/photo-1564758866169-1e8e1cf2b167?w=800&q=80'
+                    }
+                ],
+                'wines': [
+                    {
+                        name: 'Apostrophe (Dry)',
+                        description: 'Dry red wine',
+                        price: '75,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Maison Castel Granache Sweet',
+                        description: 'Sweet red wine',
+                        price: '55,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Apostle Red Blend (2020)',
+                        description: 'Red blend wine',
+                        price: '80,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Crime19 Red Wine (Snoop Dogg)',
+                        description: 'Celebrity red wine',
+                        price: '90,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Crime19 Dark Red Wine',
+                        description: 'Dark red wine',
+                        price: '75,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Crime19 Red Wine (The Arising)',
+                        description: 'Red wine',
+                        price: '75,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Nederburg Red/White',
+                        description: 'South African wine',
+                        price: '63,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Chamdor Red',
+                        description: 'Non-alcoholic red',
+                        price: '55,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Chamdor White',
+                        description: 'Non-alcoholic white',
+                        price: '55,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Nederburg Blanc',
+                        description: 'White wine',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Apostrophe Semi Sweet',
+                        description: 'Semi-sweet wine',
+                        price: '75,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Nederburg Cabernets',
+                        description: 'Cabernet wine',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Nederburg Lyric',
+                        description: 'Premium wine',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Di Rosa Sweet White',
+                        description: 'Sweet white wine',
+                        price: '70,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Di Rosa Sweet Red',
+                        description: 'Sweet red wine',
+                        price: '70,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Di Rosa Sweet Rosé',
+                        description: 'Sweet rosé wine',
+                        price: '70,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Ermelinda Dona Pamela (White)',
+                        description: 'Portuguese white wine',
+                        price: '65,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Ermelinda Dona Pamela (Red)',
+                        description: 'Portuguese red wine',
+                        price: '65,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Ermelinda Dom Campos (Red)',
+                        description: 'Portuguese red wine',
+                        price: '62,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Ermelinda Dom Campos (White)',
+                        description: 'Portuguese white wine',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Santa Rita Cabernet Sauvignon',
+                        description: 'Chilean Cabernet',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Santa Rita Sauvignon Blanc',
+                        description: 'Chilean white wine',
+                        price: '60,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Kopke Sweet Red Wine',
+                        description: 'Port-style red wine',
+                        price: '80,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    },
+                    {
+                        name: 'Vartely Red Wine',
+                        description: 'Moldovan red wine',
+                        price: '65,000',
+                        image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
+                    }
+                ],
+                'tequila': [
+                    {
+                        name: 'Casamigos Blanco',
+                        description: 'Premium tequila (Shots: ₦15,000)',
+                        price: '360,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Don Julio 1942 Añejo',
+                        description: 'Ultra-premium tequila (Shots: ₦10,000)',
+                        price: '980,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Olmeca Silver',
+                        description: 'Silver tequila',
+                        price: '100,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Casamigos Reposado',
+                        description: 'Aged tequila (Shots: ₦18,000)',
+                        price: '395,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Casamigos Añejo',
+                        description: 'Extra aged tequila (Shots: ₦21,000)',
+                        price: '435,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Patrón Añejo',
+                        description: 'Aged tequila (Shots: ₦10,000)',
+                        price: '160,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Patrón Blanco',
+                        description: 'Silver tequila (Shots: ₦10,000)',
+                        price: '180,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Silver Patrón',
+                        description: 'Premium silver tequila (Shots: ₦10,000)',
+                        price: '110,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Padre Azul Blanco',
+                        description: 'Luxury tequila (Shots: ₦10,000)',
+                        price: '350,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    },
+                    {
+                        name: 'Volcán Blanco',
+                        description: 'Premium tequila',
+                        price: '140,000',
+                        image: 'https://images.unsplash.com/photo-1608094338991-47c0a1111d98?w=800&q=80'
+                    }
+                ],
+                'mocktail-menu': [
+                    {
+                        name: 'Virgin Colada',
+                        description: 'Pineapple, coconut cream and syrup',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&q=80'
+                    },
+                    {
+                        name: 'Pineapple Sunrise',
+                        description: 'Pineapple fresh juice, pomegranate syrup',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1619604395920-a16f33192a50?q=80&w=871&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    },
+                    {
+                        name: 'Cole Busby',
+                        description: 'Strawberry, lemon and sprite',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&q=80'
+                    },
+                    {
+                        name: 'Very Very Strawberry',
+                        description: 'Strawberry puree, fresh strawberry, vanilla syrup, simple syrup',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1573500883495-6c9b16d88d8c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    },
+                    {
+                        name: 'Cucumber Spritz',
+                        description: 'Cucumber, elderflower, lemon, sparkling wine (non-alcoholic)',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1630946082770-512616e60aec?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    },
+                    {
+                        name: 'Lemonade',
+                        description: 'Lemon, sugar and soda',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f9e?q=80&w=393&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D=80'
+                    },
+                    {
+                        name: 'Passion Sparklers',
+                        description: 'Passion fruit, coconut, apple juice, lemon and soda',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=800&q=80'
+                    },
+                    {
+                        name: 'Virgin Daiquiri',
+                        description: 'Strawberry fruit, strawberry syrup, strawberry puree, lemon juice and pomegranate syrup',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1578474846511-04ba529f0b88?w=800&q=80'
+                    },
+                    {
+                        name: 'Virgin Mojito',
+                        description: 'Mint, lemon, sugar and sprite',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=800&q=80'
+                    },
+                    {
+                        name: 'Up Town Girls',
+                        description: 'Mango, lychee, mint and apple juice',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1556881286-fc6915169721?w=800&q=80'
+                    },
+                    {
+                        name: 'Pink Lemonade',
+                        description: 'Lemon, sugar and soda, strawberry syrup',
+                        price: '12,000',
+                        image: 'https://images.unsplash.com/photo-1600628421055-4d30de868b8f?w=800&q=80'
+                    }
+                ]
+            }
+        };
+
+        let currentCategory = null;
+        let currentSubCategory = null;
+
+        function init() {
+            showCategories();
+        }
+
+        function showCategories() {
+            currentCategory = null;
+            currentSubCategory = null;
+            
+            document.getElementById('categoriesView').classList.remove('hidden');
+            document.getElementById('subCategoriesView').classList.add('hidden');
+            document.getElementById('menuItemsView').classList.add('hidden');
+            document.getElementById('breadcrumb').classList.add('hidden');
+
+            const grid = document.getElementById('categoriesGrid');
+            grid.innerHTML = '';
+
+            menuData.categories.forEach(category => {
+                const totalItems = category.subCategories.reduce((sum, sub) => sum + sub.count, 0);
+                const card = createCategoryCard(category, totalItems, () => showSubCategories(category));
+                grid.appendChild(card);
+            });
+        }
+
+        function showSubCategories(category) {
+            currentCategory = category;
+            currentSubCategory = null;
+
+            document.getElementById('categoriesView').classList.add('hidden');
+            document.getElementById('subCategoriesView').classList.remove('hidden');
+            document.getElementById('menuItemsView').classList.add('hidden');
+            
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.classList.remove('hidden');
+            breadcrumb.innerHTML = `
+                <span class="breadcrumb-link" onclick="showCategories()">Menu</span>
+                <span class="breadcrumb-separator">›</span>
+                <span>${category.name}</span>
+            `;
+
+            document.getElementById('subCategoryTitle').textContent = category.name;
+
+            const grid = document.getElementById('subCategoriesGrid');
+            grid.innerHTML = '';
+
+            category.subCategories.forEach(subCategory => {
+                const card = createCategoryCard(
+                    { ...subCategory, image: category.image },
+                    subCategory.count,
+                    () => showMenuItems(subCategory)
+                );
+                grid.appendChild(card);
+            });
+        }
+
+        function showMenuItems(subCategory) {
+            currentSubCategory = subCategory;
+
+            document.getElementById('categoriesView').classList.add('hidden');
+            document.getElementById('subCategoriesView').classList.add('hidden');
+            document.getElementById('menuItemsView').classList.remove('hidden');
+
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = `
+                <span class="breadcrumb-link" onclick="showCategories()">Menu</span>
+                <span class="breadcrumb-separator">›</span>
+                <span class="breadcrumb-link" onclick="showSubCategories(currentCategory)">${currentCategory.name}</span>
+                <span class="breadcrumb-separator">›</span>
+                <span>${subCategory.name}</span>
+            `;
+
+            document.getElementById('menuItemsTitle').textContent = subCategory.name;
+
+            const grid = document.getElementById('menuItemsGrid');
+            grid.innerHTML = '';
+
+            const items = menuData.menuItems[subCategory.id] || [];
+            
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="loading">Menu items coming soon...</div>';
+                return;
+            }
+
+            items.forEach((item, index) => {
+                const card = createMenuItemCard(item, index);
+                grid.appendChild(card);
+            });
+        }
+
+        function createCategoryCard(category, count, onClick) {
+            const card = document.createElement('div');
+            card.className = 'category-card';
+            card.onclick = onClick;
+
+            card.innerHTML = `
+                <div class="category-image-wrapper">
+                    <img src="${category.image}" alt="${category.name}" class="category-image">
+                    <div class="category-overlay"></div>
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">${category.name}</h3>
+                    <p class="category-count">${count} ${count === 1 ? 'item' : 'items'}</p>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function createMenuItemCard(item, index) {
+            const card = document.createElement('div');
+            card.className = 'menu-item-card';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            card.innerHTML = `
+                <div class="menu-item-image-wrapper">
+                    <img src="${item.image}" alt="${item.name}" class="menu-item-image">
+                </div>
+                <div class="menu-item-content">
+                    <h3 class="menu-item-name">${item.name}</h3>
+                    <p class="menu-item-description">${item.description}</p>
+                    <div class="menu-item-price">
+                        <span class="price-currency">₦</span>
+                        <span>${item.price}</span>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function goBack() {
+            if (currentSubCategory) {
+                showSubCategories(currentCategory);
+            } else if (currentCategory) {
+                showCategories();
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
