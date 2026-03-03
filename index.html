@@ -861,6 +861,34 @@
     </div>
 
     <script>
+        // ── SUBCATEGORY IMAGES ──────────────────────────────────────────────
+// Change any URL here to update that subcategory's card photo.
+const subCategoryImages = {
+    'all-day-breakfast':  'https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80',
+    'entree-items':       'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80',
+    'hot-starters':       'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&q=80',
+    'finger-bites':       'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=800&q=80',
+    'pizza-menu':         'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80',
+    'combo-platters':     'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80',
+    'salad-menu':         'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80',
+    'pasta-dishes':       'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80',
+    'rice-dishes':        'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=800&q=80',
+    'main-courses':       'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=800&q=80',
+    'steak-selection':    'https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80',
+    'side-dishes':        'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=800&q=80',
+    'burger-menu':        'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80',
+    'sandwich-menu':      'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80',
+    'dessert-menu':       'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=800&q=80',
+    'cognac':             'https://i.imgur.com/BOecRDB.jpg?w=800&q=80',
+    'champagne':          'https://i.imgur.com/p4y1AcO.jpeg?w=800&q=80',
+    'whiskey':            'https://i.imgur.com/uQsGNhO.jpg?w=800&q=80',
+    'gin':                'https://i.imgur.com/SCFPXz8.png?w=800&q=80',
+    'liqueur':            'https://i.imgur.com/EN1o8TH.jpeg?w=800&q=80',
+    'vodka':              'https://i.imgur.com/KHagiXz.jpg?w=800&q=80',
+    'wines':              'https://i.imgur.com/b2funmA.jpeg?w=800&q=80',
+    'tequila':            'https://i.imgur.com/B9z8EJs.jpeg?w=800&q=80',
+    'mocktail-menu':      'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=800'
+};
         // Complete menu data from Zack & Ryans PDF
         const menuData = {
             categories: [
@@ -1916,7 +1944,7 @@
                         image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
                     },
                     {
-                        name: 'Nederburg Red/White',
+                        name: 'Nederburg Red',
                         description: 'South African wine',
                         price: '63,000',
                         image: 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=800&q=80'
@@ -2205,8 +2233,9 @@
             grid.innerHTML = '';
 
             category.subCategories.forEach(subCategory => {
+                const subImage = subCategoryImages[subCategory.id] || category.image;
                 const card = createCategoryCard(
-                    { ...subCategory, image: category.image },
+    { ...subCategory, image: subImage },
                     subCategory.count,
                     () => showMenuItems(subCategory)
                 );
