@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<link href="https://i.imgur.com/TGUyYVr.png" rel="icon" type="image/png"/>
-<title>Zaya &amp; Ryan's - Restaurant &amp; Sport Lounge</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&amp;family=Inter:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/TGUyYVr.png">
+    <title>Zaya & Ryan's - Restaurant & Sport Lounge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -720,195 +719,148 @@
             color: var(--text-light);
             font-style: italic;
         }
-    
-
-body { font-family: 'Inter', sans-serif; }
-
-.restaurant-name,
-.section-title,
-.category-name,
-.menu-item-name {
-    font-family: 'Playfair Display', serif;
-}
-
-.header {
-    padding: 1.2rem 1rem;
-}
-
-.restaurant-name {
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-}
-
-.restaurant-subtitle {
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-}
-
-/* Bounce effect */
-.category-card:hover,
-.menu-item-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    animation: bounce 0.4s ease;
-}
-
-@keyframes bounce {
-    0%   { transform: translateY(0) scale(1); }
-    40%  { transform: translateY(-12px) scale(1.04); }
-    70%  { transform: translateY(-6px) scale(1.02); }
-    100% { transform: translateY(-8px) scale(1.03); }
-}
-
-/* Footer */
-.footer {
-    margin-top: 0rem;
-    background: var(--primary-color);
-    color: var(--bg-cream);
-    padding: 2rem 1.5rem;
-    text-align: center;
-}
-
-.footer-credit {
-    margin-bottom: 1rem;
-}
-
-.footer-credit a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.footer-disclaimer {
-    font-size: 0.8rem;
-    color: #cfc7bb;
-    line-height: 1.6;
-}
-</style>
+    </style>
 </head>
 <body>
-<header class="header">
-<div class="header-content">
-<h1 class="restaurant-name">Zaya &amp; Ryan's</h1>
-<p class="restaurant-subtitle">Restaurant &amp; Sport Lounge</p>
-</div>
-</header>
-<!-- Ribbon Navigation -->
-<div class="ribbon-nav">
-<a class="ribbon-link" href="#" onclick="showContact(event)">
-<i class="fas fa-phone"></i>
-<span class="ribbon-link-text">Contact</span>
-</a>
-<a class="ribbon-link" href="#" onclick="showReviews(event)">
-<i class="fas fa-star"></i>
-<span class="ribbon-link-text">Reviews</span>
-</a>
-</div>
-<!-- Contact Page -->
-<div class="contact-page" id="contactPage">
-<div class="contact-header">
-<h2 class="contact-title">Get In Touch</h2>
-<p class="contact-subtitle">We'd love to hear from you!</p>
-</div>
-<div class="contact-grid">
-<div class="contact-card">
-<div class="contact-icon">
-<i class="fas fa-phone-alt"></i>
-</div>
-<div class="contact-label">Phone</div>
-<div class="contact-value">+234 916 899 6280</div>
-<a class="contact-link" href="tel:+2349168996280">
-<i class="fas fa-phone"></i> Call Us
+    <header class="header">
+        <div class="header-content">
+            <h1 class="restaurant-name">Zaya & Ryan's</h1>
+            <p class="restaurant-subtitle">Restaurant & Sport Lounge</p>
+        </div>
+    </header>
+
+    <!-- Ribbon Navigation -->
+    <div class="ribbon-nav">
+        <a href="#" class="ribbon-link" onclick="showContact(event)">
+            <i class="fas fa-phone"></i>
+            <span class="ribbon-link-text">Contact</span>
+        </a>
+        <a href="#" class="ribbon-link" onclick="showReviews(event)">
+            <i class="fas fa-star"></i>
+            <span class="ribbon-link-text">Reviews</span>
+        </a>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="contact-page" id="contactPage">
+        <div class="contact-header">
+            <h2 class="contact-title">Get In Touch</h2>
+            <p class="contact-subtitle">We'd love to hear from you!</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">+234 916 899 6280</div>
+                <a href="tel:+2349168996280" class="contact-link">
+                    <i class="fas fa-phone"></i> Call Us
                 </a>
-</div>
-<div class="contact-card">
-<div class="contact-icon">
-<i class="fab fa-whatsapp"></i>
-</div>
-<div class="contact-label">WhatsApp</div>
-<div class="contact-value">Message us anytime</div>
-<a class="contact-link" href="https://wa.me/message/5BGREVYSSTEWO1" target="_blank">
-<i class="fab fa-whatsapp"></i> Chat Now
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div class="contact-label">WhatsApp</div>
+                <div class="contact-value">Message us anytime</div>
+                <a href="https://wa.me/message/5BGREVYSSTEWO1" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i> Chat Now
                 </a>
-</div>
-<div class="contact-card">
-<div class="contact-icon">
-<i class="fas fa-envelope"></i>
-</div>
-<div class="contact-label">Email</div>
-<div class="contact-value">zayaryansabuja@gmail.com</div>
-<a class="contact-link" href="mailto:zayaryansabuja@gmail.com">
-<i class="fas fa-envelope"></i> Email Us
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">zayaryansabuja@gmail.com</div>
+                <a href="mailto:zayaryansabuja@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i> Email Us
                 </a>
-</div>
-<div class="contact-card">
-<div class="contact-icon">
-<i class="fab fa-instagram"></i>
-</div>
-<div class="contact-label">Instagram</div>
-<div class="contact-value">@zayaandryansabuja</div>
-<a class="contact-link" href="https://www.instagram.com/zayaandryansabuja?igsh=dGl1eWM1ejd4eTVl" target="_blank">
-<i class="fab fa-instagram"></i> Follow Us
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+                <div class="contact-label">Instagram</div>
+                <div class="contact-value">@zayaandryansabuja</div>
+                <a href="https://www.instagram.com/zayaandryansabuja?igsh=dGl1eWM1ejd4eTVl" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i> Follow Us
                 </a>
-</div>
-</div>
-<div style="text-align: center;">
-<button class="close-page-btn" onclick="closePages()">
-<i class="fas fa-arrow-left"></i> Back to Menu
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="close-page-btn" onclick="closePages()">
+                <i class="fas fa-arrow-left"></i> Back to Menu
             </button>
-</div>
-</div>
-<!-- Review Page -->
-<div class="review-page" id="reviewPage">
-<div class="review-header">
-<h2 class="review-title">Leave Us a Review</h2>
-<p class="review-subtitle">Your feedback helps us serve you better!</p>
-</div>
-<div class="review-cta">
-<h3>Share Your Experience</h3>
-<p>We value your opinion! Click the button below to leave a Google review and let us know how we're doing.</p>
-<a class="review-button" href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank">
-<i class="fab fa-google"></i> Write a Google Review
+        </div>
+    </div>
+
+    <!-- Review Page -->
+    <div class="review-page" id="reviewPage">
+        <div class="review-header">
+            <h2 class="review-title">Leave Us a Review</h2>
+            <p class="review-subtitle">Your feedback helps us serve you better!</p>
+        </div>
+
+        <div class="review-cta">
+            <h3>Share Your Experience</h3>
+            <p>We value your opinion! Click the button below to leave a Google review and let us know how we're doing.</p>
+            <a href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK/review" target="_blank" class="review-button">
+                <i class="fab fa-google"></i> Write a Google Review
             </a>
-</div>
-<div style="background: var(--bg-cream); padding: 2rem; border-radius: 12px; margin-top: 2rem;">
-<h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;">Why Your Review Matters</h3>
-<ul style="color: var(--text-light); font-size: 1rem; line-height: 2; padding-left: 2rem;">
-<li>Helps us improve our service</li>
-<li>Guides other customers in making choices</li>
-<li>Shows us what we're doing right</li>
-<li>Builds trust in our community</li>
-</ul>
-</div>
-<div style="text-align: center;">
-<button class="close-page-btn" onclick="closePages()">
-<i class="fas fa-arrow-left"></i> Back to Menu
+        </div>
+
+        <div style="background: var(--bg-cream); padding: 2rem; border-radius: 12px; margin-top: 2rem;">
+            <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 1rem; text-align: center;">Why Your Review Matters</h3>
+            <ul style="color: var(--text-light); font-size: 1rem; line-height: 2; padding-left: 2rem;">
+                <li>Helps us improve our service</li>
+                <li>Guides other customers in making choices</li>
+                <li>Shows us what we're doing right</li>
+                <li>Builds trust in our community</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="close-page-btn" onclick="closePages()">
+                <i class="fas fa-arrow-left"></i> Back to Menu
             </button>
-</div>
-</div>
-<div class="container">
-<div class="breadcrumb hidden" id="breadcrumb">
-<span class="breadcrumb-link" onclick="showCategories()">Menu</span>
-</div>
-<div id="categoriesView">
-<h2 class="section-title">Our Menu</h2>
-<div class="categories-grid" id="categoriesGrid"></div>
-</div>
-<div class="hidden" id="subCategoriesView">
-<button class="back-button" onclick="showCategories()">
-<span>←</span> Back to Menu
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="breadcrumb" class="breadcrumb hidden">
+            <span class="breadcrumb-link" onclick="showCategories()">Menu</span>
+        </div>
+
+        <div id="categoriesView">
+            <h2 class="section-title">Our Menu</h2>
+            <div id="categoriesGrid" class="categories-grid"></div>
+        </div>
+
+        <div id="subCategoriesView" class="hidden">
+            <button class="back-button" onclick="showCategories()">
+                <span>←</span> Back to Menu
             </button>
-<h2 class="section-title" id="subCategoryTitle"></h2>
-<div class="categories-grid" id="subCategoriesGrid"></div>
-</div>
-<div class="hidden" id="menuItemsView">
-<button class="back-button" onclick="goBack()">
-<span>←</span> Back
+            <h2 id="subCategoryTitle" class="section-title"></h2>
+            <div id="subCategoriesGrid" class="categories-grid"></div>
+        </div>
+
+        <div id="menuItemsView" class="hidden">
+            <button class="back-button" onclick="goBack()">
+                <span>←</span> Back
             </button>
-<h2 class="section-title" id="menuItemsTitle"></h2>
-<div class="menu-items-grid" id="menuItemsGrid"></div>
-</div>
-</div>
-<script>
+            <h2 id="menuItemsTitle" class="section-title"></h2>
+            <div id="menuItemsGrid" class="menu-items-grid"></div>
+        </div>
+    </div>
+
+    <script>
         // ── SUBCATEGORY IMAGES ──────────────────────────────────────────────
 // Change any URL here to update that subcategory's card photo.
 const subCategoryImages = {
@@ -2446,17 +2398,5 @@ const subCategoryImages = {
 
         init();
     </script>
-
-<footer class="footer">
-<p class="footer-credit">
-        Website built by 
-        <a href="https://reputebull.vercel.app/" target="_blank">REPUTEBULL</a>
-</p>
-<p class="footer-disclaimer">
-        Disclaimer: Menu items, prices, and availability are subject to change without prior notice. 
-        Images are for illustrative purposes only and may not accurately represent the final dish. 
-        Please inform our staff of any allergies or dietary restrictions before placing your order.
-    </p>
-</footer>
 </body>
 </html>
